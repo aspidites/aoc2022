@@ -1,5 +1,5 @@
 # Advent of Code 2022
-My solutions for AoC 2022. 
+My solutions for AoC 2022, written in [Haskell](https://www.haskell.org/). 
 
 ## Organization
 Exercises are organized by day and part under the "src" directory. For
@@ -11,13 +11,13 @@ example, day one is organized as follows:
 
 
 ## Dependencies
-This project was built using GHC 9.2.4, which can be installed using [ghcup]():
+This project was built using [GHC](https://www.haskell.org/ghc/) version 9.2.4, which can be installed using [ghcup](https://www.haskell.org/ghcup/):
 
 ```
 ghcup install ghc 9.2.4
 ```
 
-You'll also want [cabal]() so that the commands discussed later in this document work:
+You'll also want [cabal](https://www.haskell.org/cabal/) so that the commands discussed later in this document work:
 ```
 ghcup install cabal
 ```
