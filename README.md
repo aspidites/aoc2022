@@ -9,9 +9,45 @@ example, day one is organized as follows:
     ├── Part1.hs
     └── Part2.hs
 
+
+## Dependencies
+This project was built using GHC 9.2.4, which can be installed using [ghcup]():
+
+```
+ghcup install ghc 9.2.4
+```
+
+You'll also want [cabal]() so that the commands discussed later in this document work:
+```
+ghcup install cabal
+```
+
+## Installing
+
+### Using Cabal
+You can install the executable with:
+```
+cabal install
+```
+
+By default, this installs to `$HOME/.cabal/bin`. If you'd prefer to install to a different location, see the "Using Make" section below.
+
+### Using Make
+You can use the `install` target, which will build an executable and copy it to the local `./bin` directory:
+```
+make install
+```
+
+You can change the install directory by using the `INSTALLDIR` environment variable
+```
+INSTALLDIR=$HOME/.local/bin make install
+```
+
 ## Running
 
-You can use `cabal run aoc` to run the program. To get full help, you can run the following:
+### Using Cabal
+
+You can use `cabal run aoc` to run the executable without installing it. To get full help, you can run the following:
 ```
 ❯ cabal run aoc -- -h
 Up to date
@@ -38,13 +74,19 @@ cabal run aoc ./inputs/01.txt 1 2
 
 ## Posting
 Since this runs in the command line, it's rather trivial to copy a solution
-to the clipboard for submission. On linux:
+to the clipboard for submission. 
+
+### On Linux
 
 ```
-cabal run -v0 aoc2022 ./inputs/01.txt 1 1 | xclip --selection clipboard
+cabal run -v0 aoc ./inputs/01.txt 1 1 | xclip --selection clipboard
 ```
 
-On mac:
+### On Mac OSX
 ```
-cabal run -v0 aoc2022 ./inputs/01.txt 1 1 | pbcopy
+cabal run -v0 aoc ./inputs/01.txt 1 1 | pbcopy
 ```
+
+### On Windows
+
+Uh.. I'll get back to you on that.
