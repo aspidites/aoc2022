@@ -1,0 +1,6 @@
+services:
+  haskell:
+    user: "${UID}"
+    image: utdemir/ghc-musl:v24-ghc922
+    volumes:
+      - .:/mnt

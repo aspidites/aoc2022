@@ -21,7 +21,7 @@ common shared-ghc-options
 
 common shared-depends 
   build-depends:    
-      base ^>=4.16.3.0
+      base
     , text
     , optparse-generic
 

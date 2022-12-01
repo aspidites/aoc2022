@@ -32,8 +32,8 @@ cabal install
 
 By default, this installs to `$HOME/.cabal/bin`. If you'd prefer to install to a different location, see the "Using Make" section below.
 
-### Using Make
-You can use the `install` target, which will build an executable and copy it to the local `./bin` directory:
+### Using Make (Dynamic)
+You can use the `install` target, which will build a dynamically-linked executable and copy it to the local `./bin` directory:
 ```
 make install
 ```
@@ -42,6 +42,19 @@ You can change the install directory by using the `INSTALLDIR` environment varia
 ```
 INSTALLDIR=$HOME/.local/bin make install
 ```
+
+### Using Make (Dynamic)
+If you prefer to rebuild the static binary (located in ./static), you can do so with the `static` target:
+```
+make static
+```
+
+Similar to the `install` target, you can control where the resulting executable gets copied:
+
+```
+STATICINSTALLDIR=$HOME/.local/bin make install
+```
+
 
 ## Running
 
