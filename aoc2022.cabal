@@ -23,6 +23,7 @@ common shared-depends
   build-depends:    
       base ^>=4.16.3.0
     , text
+    , optparse-generic
 
 library
   import:
@@ -33,6 +34,7 @@ library
     Day1
     Day1.Part1
     Day1.Part2
+    Options
 
   hs-source-dirs: src
   default-language: GHC2021

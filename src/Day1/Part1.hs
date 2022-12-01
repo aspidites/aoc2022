@@ -1,10 +1,9 @@
-module Day1.Part1 (solve, run) where
+module Day1.Part1 (run) where
 
-import Data.Text (Text)
-import Day1 (Solver, mkRun)
+import Day1 (Solver, Runner, mkRun)
 
 solve :: Solver
 solve = maximum . fmap sum
 
-run :: Text -> Text
+run :: Runner
 run = mkRun solve
