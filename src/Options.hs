@@ -53,7 +53,7 @@ runAllDays = sequence_ $ do
 runAllParts :: Natural -> IO ()
 runAllParts day = do
   case lookup day exercises of
-    Nothing -> error $ "Solutions for day " <> show day <> "do not exist."
+    Nothing -> putStrLn $ "Solutions for day " <> show day <> "do not exist."
     Just parts -> do
       forM_ parts $ \(_, (runner, path)) -> runner path
 
@@ -61,8 +61,8 @@ runAllParts day = do
 run :: Natural -> Natural -> IO ()
 run day part = do
   case lookup day exercises of
-    Nothing -> error $ "Solutions for day " <> show day <> "do not exist."
+    Nothing -> putStrLn $ "Solutions for day " <> show day <> "do not exist."
     Just parts -> do
       case lookup part parts of
-        Nothing -> error $ "Solutions for day " <> show day <> ", part " <> show part <> " do not exist."
+        Nothing -> putStrLn $ "Solutions for day " <> show day <> ", part " <> show part <> " do not exist."
         Just (runner, path) -> runner path
