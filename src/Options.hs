@@ -12,57 +12,58 @@ import Day1.Part2 qualified as Day1Part2
 
 
 data Options w = Options
-  { day :: w ::: Maybe Natural  <?> "Which day's exercises to run"
-  , part :: w ::: Maybe Natural <?> "Which part of the day's exercise to run"
-  } deriving (Generic)
+  (w ::: FilePath <?> "Path to an input file to run an exercise against")
+  (w ::: Maybe Natural  <?> "Which day's exercises to run")
+  (w ::: Maybe Natural <?> "Which part of the day's exercise to run")
+  deriving (Generic)
 
 instance ParseRecord (Options Wrapped)
 deriving instance Show (Options Unwrapped)
 
-exercises :: [(Natural, [(Natural, (Runner, FilePath))])]
+exercises :: [(Natural, [(Natural, Runner)])]
 exercises = 
   [
     ( 1
       , [ ( 1
-          , ( Day1Part1.run, "./inputs/01.txt" )
+          , Day1Part1.run
           )
         , ( 2
-          , ( Day1Part2.run, "./inputs/01.txt")
+          , Day1Part2.run
           )
         ]
     )
   ]
 
 runWithOptions :: Options Unwrapped -> IO ()
-runWithOptions (Options day part) = do
+runWithOptions (Options input day part) = do
   case day of
-    Nothing -> runAllDays
+    Nothing -> runAllDays input
     Just day' -> do
       case part of
-        Nothing -> runAllParts day'
+        Nothing -> runAllParts input day'
         Just part' -> do
-          run day' part' 
+          run input day' part' 
 
-runAllDays :: IO ()
-runAllDays = sequence_ $ do
+runAllDays :: FilePath -> IO ()
+runAllDays input = sequence_ $ do
   (_, parts) <- exercises
-  (_, (runner, path)) <- parts
-  pure $ runner path
+  (_, runner) <- parts
+  pure $ runner input
   
 
-runAllParts :: Natural -> IO ()
-runAllParts day = do
+runAllParts :: FilePath -> Natural -> IO ()
+runAllParts input day = do
   case lookup day exercises of
     Nothing -> putStrLn $ "Solutions for day " <> show day <> "do not exist."
     Just parts -> do
-      forM_ parts $ \(_, (runner, path)) -> runner path
+      forM_ parts $ \(_, runner) -> runner input
 
 
-run :: Natural -> Natural -> IO ()
-run day part = do
+run :: FilePath -> Natural -> Natural -> IO ()
+run input day part = do
   case lookup day exercises of
     Nothing -> putStrLn $ "Solutions for day " <> show day <> "do not exist."
     Just parts -> do
       case lookup part parts of
         Nothing -> putStrLn $ "Solutions for day " <> show day <> ", part " <> show part <> " do not exist."
-        Just (runner, path) -> runner path
+        Just runner -> runner input

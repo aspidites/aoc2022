@@ -1,8 +1,8 @@
 cabal-version:      3.0
-name:               aoc2022
+name:               aoc
 version:            0.1.0.0
 synopsis:           Advent of Code 2022 solutions
-homepage:           https://github.com/aspidites/aoc2022
+homepage:           https://github.com/aspidites/aoc
 license:            MIT
 license-file:       LICENSE
 author:             Edwin Marshall
@@ -39,7 +39,7 @@ library
   hs-source-dirs: src
   default-language: GHC2021
 
-executable aoc2022
+executable aoc
   import:
       shared-depends
     , shared-ghc-options
@@ -47,12 +47,12 @@ executable aoc2022
   main-is: Main.hs
 
   build-depends:
-      aoc2022
+      aoc
 
   hs-source-dirs: app
   default-language: GHC2021
 
-test-suite aoc2022-test
+test-suite aoc-test
   default-language: GHC2021
   type: exitcode-stdio-1.0
   hs-source-dirs: test
