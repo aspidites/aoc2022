@@ -5,9 +5,9 @@ My solutions for AoC 2022.
 Exercises are organized by day and part under the "src" directory. For
 example, day one is organized as follows:
 
-src/Day1
-├── Part1.hs
-└── Part2.hs
+    src/Day1
+    ├── Part1.hs
+    └── Part2.hs
 
 ## Running
 You can run a given solution using cabal as follows:
