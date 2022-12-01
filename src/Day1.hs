@@ -9,7 +9,7 @@ import Data.Text.Read (decimal)
 import Numeric.Natural (Natural)
 
 type Solver = [[Natural]] -> Natural
-type Runner = FilePath -> IO ()
+type Runner = FilePath -> IO Text
 
 parse :: Text -> [[Natural]]
 parse = fmap (go . T.lines) . T.splitOn "\n\n"
@@ -20,4 +20,4 @@ parse = fmap (go . T.lines) . T.splitOn "\n\n"
 mkRun :: Solver -> Runner
 mkRun solve path = do
   contents <- T.readFile path
-  T.putStrLn $ T.pack . show . solve $ parse contents
+  pure $ T.pack . show . solve $ parse contents

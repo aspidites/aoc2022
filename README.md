@@ -85,6 +85,13 @@ To just run the solution for part 2, you can run:
 cabal run aoc ./inputs/01.txt 1 2
 ```
 
+### Benchmarks
+
+Benchmarks can be run using cabal:
+```
+cabal bench
+```
+
 ## Posting
 Since this runs in the command line, it's rather trivial to copy a solution
 to the clipboard for submission. 

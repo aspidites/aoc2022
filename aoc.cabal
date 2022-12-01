@@ -25,24 +25,31 @@ common shared-depends
     , text
     , optparse-generic
 
+common shared-language
+  default-language: GHC2021
+  default-extensions:
+   ExplicitNamespaces 
+
 library
   import:
       shared-depends
     , shared-ghc-options
+    , shared-language
 
   exposed-modules:  
     Day1
     Day1.Part1
     Day1.Part2
     Options
+    Run
 
   hs-source-dirs: src
-  default-language: GHC2021
 
 executable aoc
   import:
       shared-depends
     , shared-ghc-options
+    , shared-language
 
   main-is: Main.hs
 
@@ -53,9 +60,28 @@ executable aoc
   default-language: GHC2021
 
 test-suite aoc-test
+  import:
+      shared-depends
+    , shared-ghc-options
+    , shared-language
+
   default-language: GHC2021
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: MyLibTest.hs
   build-depends:   
-      base ^>=4.16.3.0
+      aoc
+
+benchmark aoc-benchmarks
+  import:
+      shared-depends
+    , shared-ghc-options
+    , shared-language
+
+  type: exitcode-stdio-1.0
+  main-is: test/Benchmark.hs
+  build-depends:
+      aoc
+    , tasty-bench
+  ghc-options:
+    "-with-rtsopts=-A32m"

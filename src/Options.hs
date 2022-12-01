@@ -1,10 +1,19 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DataKinds #-}
-module Options where
+module Options 
+  ( Options(..)
+  , exercises
+  ) where
 
-import Options.Generic
-import Numeric.Natural
-import Control.Monad (forM_)
+import Options.Generic 
+  ( Generic
+  , ParseRecord
+  , Wrapped
+  , Unwrapped
+  , (:::)
+  , type (<?>)
+  )
+import Numeric.Natural (Natural)
 
 import Day1 (Runner)
 import Day1.Part1 qualified as Day1Part1
@@ -33,37 +42,3 @@ exercises =
         ]
     )
   ]
-
-runWithOptions :: Options Unwrapped -> IO ()
-runWithOptions (Options input day part) = do
-  case day of
-    Nothing -> runAllDays input
-    Just day' -> do
-      case part of
-        Nothing -> runAllParts input day'
-        Just part' -> do
-          run input day' part' 
-
-runAllDays :: FilePath -> IO ()
-runAllDays input = sequence_ $ do
-  (_, parts) <- exercises
-  (_, runner) <- parts
-  pure $ runner input
-  
-
-runAllParts :: FilePath -> Natural -> IO ()
-runAllParts input day = do
-  case lookup day exercises of
-    Nothing -> putStrLn $ "Solutions for day " <> show day <> "do not exist."
-    Just parts -> do
-      forM_ parts $ \(_, runner) -> runner input
-
-
-run :: FilePath -> Natural -> Natural -> IO ()
-run input day part = do
-  case lookup day exercises of
-    Nothing -> putStrLn $ "Solutions for day " <> show day <> "do not exist."
-    Just parts -> do
-      case lookup part parts of
-        Nothing -> putStrLn $ "Solutions for day " <> show day <> ", part " <> show part <> " do not exist."
-        Just runner -> runner input

@@ -1,4 +1,4 @@
-module Day1.Part1 (run) where
+module Day1.Part1 (run, solve) where
 
 import Day1 (Solver, Runner, mkRun)
 
