@@ -1,0 +1,57 @@
+cabal-version:      3.0
+name:               aoc2022
+version:            0.1.0.0
+synopsis:           Advent of Code 2022 solutions
+homepage:           https://github.com/aspidites/aoc2022
+license:            MIT
+license-file:       LICENSE
+author:             Edwin Marshall
+maintainer:         emarshall85@gmail.com
+
+-- A copyright notice.
+-- copyright:
+-- category:
+
+extra-source-files: CHANGELOG.md
+
+common shared-ghc-options
+  ghc-options:
+    -O2
+    -Wall
+
+common shared-depends 
+  build-depends:    
+      base ^>=4.16.3.0
+    , text
+
+library
+  import:
+      shared-depends
+    , shared-ghc-options
+
+  exposed-modules:  
+    Day1
+
+  hs-source-dirs: src
+  default-language: GHC2021
+
+executable aoc2022
+  import:
+      shared-depends
+    , shared-ghc-options
+
+  main-is: Main.hs
+
+  build-depends:
+      aoc2022
+
+  hs-source-dirs: app
+  default-language: GHC2021
+
+test-suite aoc2022-test
+  default-language: GHC2021
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: MyLibTest.hs
+  build-depends:   
+      base ^>=4.16.3.0
