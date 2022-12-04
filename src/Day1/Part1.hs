@@ -1,10 +1,11 @@
 module Day1.Part1 (run) where
 
-import Common (Runner)
-import Day1.Common (Solver, mkRun)
+import Day1.Common (Elf(..), parse)
+import Numeric.Natural (Natural)
+import  Data.ByteString (ByteString)
 
-solve :: Solver
-solve = maximum . fmap sum
+solve :: [Elf] -> Natural
+solve = maximum . fmap (sum . calories)
 
-run :: Runner
-run = mkRun solve
+run :: ByteString -> Natural
+run = solve . parse

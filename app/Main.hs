@@ -2,10 +2,10 @@
 module Main where
 
 import Options.Generic
-import Data.Text.IO qualified as T
+import Data.ByteString.Char8 qualified as B
 import Run
 
 main :: IO ()
 main = do
-  options <- unwrapRecord "AOC Runner"
-  T.putStrLn =<< runWithOptions options 
+  options <- unwrapRecord "AOC CLI"
+  B.putStrLn =<< runWithOptions options 

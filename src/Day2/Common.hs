@@ -2,14 +2,10 @@
 {-# LANGUAGE LambdaCase #-}
 module Day2.Common where
 
-import Common (Runner)
 
-import Data.Text (Text)
-import Data.Text qualified as T
-import Data.Text.IO qualified as T
+import Data.ByteString (ByteString)
+import Data.ByteString.Char8 qualified as B
 import Numeric.Natural (Natural)
-
-type Solver = [Round] -> Natural
 
 data Them = A | B | C
   deriving (Eq, Ord, Read, Show)
@@ -45,10 +41,5 @@ scoreShape = \case
   Paper -> 2 
   Scissors -> 3
 
-parse :: Text -> [Round]
-parse = fmap (\x -> read . T.unpack $ "Round " <> x) . T.lines
-
-mkRun :: Solver -> Runner
-mkRun solve path = do
-  contents <- T.readFile path
-  pure $ T.pack . show . solve $ parse contents
+parse :: ByteString -> [Round]
+parse = fmap (\x -> read . B.unpack $ "Round " <> x) . B.lines

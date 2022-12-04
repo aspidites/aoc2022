@@ -1,24 +1,21 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Day1.Common where
 
+import Data.ByteString (ByteString)
+import Data.ByteString qualified as B
 
-import Common (Runner)
-import Data.Either (rights)
-import Data.Text (Text)
-import Data.Text qualified as T
-import Data.Text.IO qualified as T
-import Data.Text.Read (decimal)
+import Data.Word (Word8)
+import Data.ByteString.Char8 (readInt)
 import Numeric.Natural (Natural)
 
-type Solver = [[Natural]] -> Natural
+newtype Elf = Elf { calories :: [Natural] }
 
-parse :: Text -> [[Natural]]
-parse = fmap (go . T.lines) . T.splitOn "\n\n"
-  where
-    go :: [Text] -> [Natural]
-    go = fmap fst . rights . fmap decimal
+tokenize :: ByteString -> ByteString -> [ByteString]
+tokenize x y = h : if B.null t then [] else tokenize x (B.drop (B.length x) t)
+    where (h,t) = B.breakSubstring x y
 
-mkRun :: Solver -> Runner
-mkRun solve path = do
-  contents <- T.readFile path
-  pure $ T.pack . show . solve $ parse contents
+newline :: Word8
+newline = 10
+
+parse :: ByteString -> [Elf]
+parse = fmap (Elf . fmap (fromIntegral . maybe 0 fst . readInt) . B.split 10) . tokenize "\n\n"

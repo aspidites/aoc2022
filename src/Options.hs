@@ -6,13 +6,15 @@ module Options
   ) where
 
 import Options.Generic 
+import Common (Exercise(..))
 import Numeric.Natural (Natural)
 
-import Common (Runner)
 import Day1.Part1 qualified as Day1Part1
 import Day1.Part2 qualified as Day1Part2
 import Day2.Part1 qualified as Day2Part1
 import Day2.Part2 qualified as Day2Part2
+
+import Data.ByteString (ByteString)
 
 data Options w = Options
   { input :: w ::: FilePath <?> "Path to an input file to run an exercise against"
@@ -27,25 +29,8 @@ instance ParseRecord (Options Wrapped) where
       modifiers = defaultModifiers { shortNameModifier = firstLetter }
 deriving instance Show (Options Unwrapped)
 
-exercises :: [(Natural, [(Natural, Runner)])]
+exercises :: [(Natural, Exercise (ByteString -> Natural))]
 exercises = 
-  [
-    ( 1
-      , [ ( 1
-          , Day1Part1.run
-          )
-        , ( 2
-          , Day1Part2.run
-          )
-        ]
-    )
-  , ( 2 
-      , [ ( 1 
-          , Day2Part1.run
-          )
-        , ( 2
-          , Day2Part2.run
-          )
-        ]
-    )
+  [ (1, Exercise Day1Part1.run Day1Part2.run)
+  , (2, Exercise Day2Part1.run Day2Part2.run)
   ]

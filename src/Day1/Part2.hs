@@ -2,14 +2,12 @@ module Day1.Part2 (run) where
 
 import Data.List (sortOn)
 import Data.Ord (Down(..))
-import Common (Runner)
-import Day1.Common (Solver, mkRun)
+import Day1.Common (Elf(..), parse)
+import Numeric.Natural (Natural)
+import  Data.ByteString (ByteString)
 
-solveFor :: Int -> Solver
-solveFor n = sum . take n . sortOn Down . fmap sum
+solve :: [Elf] -> Natural
+solve = sum . take 3 . sortOn Down . fmap (sum . calories)
 
-solve :: Solver
-solve = solveFor 3
-
-run :: Runner
-run = mkRun solve
+run :: ByteString -> Natural
+run = solve . parse

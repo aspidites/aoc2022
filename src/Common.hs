@@ -1,5 +1,16 @@
-module Common (Runner) where
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveFunctor #-}
+module Common where
 
-import Data.Text (Text)
+import Data.Aeson (FromJSON, ToJSON)
+import GHC.Generics (Generic)
 
-type Runner = FilePath -> IO Text
+data Solution a = Solution
+  { part1 :: Maybe a
+  , part2 :: Maybe a 
+  } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON, Functor)
+
+data Exercise a = Exercise
+  { ex1 :: a
+  , ex2 :: a 
+  } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON, Functor)

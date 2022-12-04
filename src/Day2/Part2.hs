@@ -1,10 +1,19 @@
 {-# LANGUAGE LambdaCase #-}
 module Day2.Part2 (run, solve) where
 
-import Common (Runner)
-import Day2.Common
+import Day2.Common 
+  ( Us(..)
+  , Them(..)
+  , RPS(..)
+  , Round(..)
+  , scoreShape
+  , scoreOutcome
+  , parse
+  , themToRPS
+  )
 
 import Numeric.Natural (Natural)
+import  Data.ByteString (ByteString)
 
 data Outcome
   = Lose
@@ -37,8 +46,8 @@ predictRound (Round them us) = shape + outcome
     ourShape = predictShape us them
     theirShape = themToRPS them
   
-solve :: Solver
+solve :: [Round] -> Natural
 solve = sum . fmap predictRound
 
-run :: Runner
-run = mkRun solve
+run :: ByteString -> Natural
+run = solve . parse

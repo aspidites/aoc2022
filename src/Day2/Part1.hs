@@ -1,14 +1,13 @@
 {-# LANGUAGE LambdaCase #-}
 module Day2.Part1 (run, solve) where
 
+import  Data.ByteString (ByteString)
 import Numeric.Natural (Natural)
-import Common (Runner)
 import Day2.Common
-  ( Solver
-  , Round(..)
+  ( Round(..)
   , RPS(..)
   , Us(..)
-  , mkRun
+  , parse
   , scoreShape
   , scoreOutcome
   , themToRPS
@@ -28,8 +27,8 @@ scoreRound (Round them us) = shape + outcome
     ourShape = usToRPS us
     theirShape = themToRPS them
 
-solve :: Solver
+solve :: [Round] -> Natural
 solve = sum . fmap scoreRound
 
-run :: Runner
-run = mkRun solve
+run :: ByteString -> Natural
+run = solve . parse

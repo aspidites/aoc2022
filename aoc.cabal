@@ -22,9 +22,8 @@ common shared-ghc-options
 common shared-depends 
   build-depends:    
       base
-    , text
+    , aeson
     , optparse-generic
-    , jsonifier
     , bytestring
 
 common shared-language
@@ -39,19 +38,17 @@ library
     , shared-language
 
   exposed-modules:  
+    Common
     Day1
-    Day2
-    Options
-    Run
-
-  other-modules:
     Day1.Common
     Day1.Part1
     Day1.Part2
+    Day2
     Day2.Common
     Day2.Part1
     Day2.Part2
-    Common
+    Options
+    Run
 
   hs-source-dirs: src
 
@@ -68,6 +65,11 @@ executable aoc
 
   hs-source-dirs: app
   default-language: GHC2021
+  ghc-options:
+    ---rtsopts
+    -threaded
+    ---fprof-auto
+    --"-with-rtsopts=-N -p -s -hT -i0.1"
 
 test-suite aoc-test
   import:
