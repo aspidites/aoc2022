@@ -29,7 +29,7 @@ runAllParts input day asJson = do
       if asJson then do
         results <- forM parts $ \(part, runner) -> do
           result <- runner input
-          pure ("part_" <> T.pack (show part), textString result)
+          pure ("part_" <> T.pack (show part), intNumber (read (T.unpack result)))
         pure . decodeUtf8 . toByteString $ object results
       else do
         results <- forM parts $ \(_, runner) -> runner input
@@ -45,7 +45,7 @@ run input day part asJson = do
         Just runner -> 
           if asJson then do
             result <- runner input
-            let results = ("part_" <> T.pack (show part), textString result)
+            let results = ("part_" <> T.pack (show part), intNumber (read (T.unpack result)))
             pure . decodeUtf8 . toByteString $ object [results]
           else runner input
 
