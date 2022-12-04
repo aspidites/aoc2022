@@ -24,6 +24,8 @@ common shared-depends
       base
     , text
     , optparse-generic
+    , jsonifier
+    , bytestring
 
 common shared-language
   default-language: GHC2021
@@ -49,6 +51,7 @@ library
     Day2.Common
     Day2.Part1
     Day2.Part2
+    Common
 
   hs-source-dirs: src
 

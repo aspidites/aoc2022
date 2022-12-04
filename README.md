@@ -63,27 +63,37 @@ STATICINSTALLDIR=$HOME/.local/bin make install
 You can use `cabal run aoc` to run the executable without installing it. To get full help, you can run the following:
 ```
 ❯ cabal run aoc -- -h
-Up to date
 AOC Runner
 
-Usage: aoc STRING NATURAL [NATURAL]
+Usage: aoc (-i|--input STRING) (-d|--day NATURAL) [-p|--part NATURAL] 
+           [-j|--json]
 
 Available options:
   -h,--help                Show this help text
-  STRING                   Path to an input file to run an exercise against
-  NATURAL                  Which day's exercises to run
-  NATURAL                  Which part of the day's exercise to run
+  -i,--input STRING        Path to an input file to run an exercise against
+  -d,--day NATURAL         Which day's exercises to run
+  -p,--part NATURAL        Which part of the day's exercise to run
+  -j,--json                Whether or not to show resuls as json
 ```
 
 For example, to run all solutions for a day, you can run:
 ```
-cabal run aoc ./inputs/01.txt 1
+cabal run aoc -i ./inputs/01.txt -d 1
+70764
+203905
 ```
 
 To just run the solution for part 2, you can run:
 ```
-cabal run aoc ./inputs/01.txt 1 2
+cabal run aoc -i ./inputs/01.txt -d 1 -p 2
+203905
 ```
+
+If you'd rather the results as json, just pass the `-j` flag:
+```
+{"part_1":"70764","part_2":"203905"}
+```
+
 
 ### Benchmarks
 

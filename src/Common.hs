@@ -1,4 +1,4 @@
-module Common where
+module Common (Runner) where
 
 import Data.Text (Text)
 

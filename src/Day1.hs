@@ -12,4 +12,3 @@ part1 = Part1.run
 
 part2 :: Runner
 part2 = Part2.run
-
