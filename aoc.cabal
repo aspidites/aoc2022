@@ -18,6 +18,10 @@ common shared-ghc-options
   ghc-options:
     -O2
     -Wall
+    -fexcess-precision
+    -optc-O3
+    -optc-ffast-math
+    -fforce-recomp
 
 common shared-depends 
   build-depends:    

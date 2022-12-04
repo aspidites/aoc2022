@@ -14,7 +14,7 @@ findDuplicate :: RuckSack -> Set Char
 findDuplicate (RuckSack _ a b) = a `S.intersection` b
 
 prioritize :: [RuckSack] -> [Natural]
-prioritize = fmap getPriority . foldr go [] . fmap findDuplicate
+prioritize = map getPriority . foldr (go . findDuplicate) [] 
   where
     go :: Set Char -> [Char] -> [Char]
     go set list = S.toAscList set <> list

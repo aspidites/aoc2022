@@ -73,7 +73,7 @@ data RuckSack = RuckSack
   deriving (Eq, Ord, Show)
 
 parse :: ByteString -> [RuckSack]
-parse = fmap go . B.lines
+parse = map go . B.lines
   where
     go :: ByteString -> RuckSack
     go line = 

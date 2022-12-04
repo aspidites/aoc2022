@@ -14,10 +14,10 @@ import  Data.ByteString (ByteString)
 import Data.List.Split (chunksOf)
 
 solve :: [RuckSack] -> Natural
-solve = sum . fmap getPriority . concatMap (S.toList . foldr1 S.intersection) . getTeams
+solve = sum . map getPriority . concatMap (S.toList . foldr1 S.intersection) . getTeams
 
 getTeams :: [RuckSack] -> [[Set Char]]
-getTeams = fmap (fmap S.fromList) . chunksOf 3 . fmap team
+getTeams = map (map S.fromList) . chunksOf 3 . map team
 
 run :: ByteString -> Natural
 run = solve . parse
