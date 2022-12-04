@@ -1,7 +1,6 @@
 module Day3.Part1 (run, solve) where
 
 import  Data.ByteString (ByteString)
-import Numeric.Natural (Natural)
 import Data.Set (Set)
 import Data.Set qualified as S
 import Day3.Common
@@ -13,14 +12,14 @@ import Day3.Common
 findDuplicate :: RuckSack -> Set Char
 findDuplicate (RuckSack _ a b) = a `S.intersection` b
 
-prioritize :: [RuckSack] -> [Natural]
+prioritize :: [RuckSack] -> [Int]
 prioritize = map getPriority . foldr (go . findDuplicate) [] 
   where
     go :: Set Char -> [Char] -> [Char]
     go set list = S.toAscList set <> list
 
-solve :: [RuckSack] -> Natural
+solve :: [RuckSack] -> Int
 solve = sum . prioritize
 
-run :: ByteString -> Natural
+run :: ByteString -> Int
 run = solve . parse

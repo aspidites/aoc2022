@@ -7,7 +7,6 @@ module Options
 
 import Options.Generic 
 import Common (Solution(..))
-import Numeric.Natural (Natural)
 
 import Day1.Part1 qualified as Day1Part1
 import Day1.Part2 qualified as Day1Part2
@@ -20,8 +19,8 @@ import Data.ByteString (ByteString)
 
 data Options w = Options
   { input :: w ::: FilePath <?> "Path to an input file to run an exercise against"
-  , day :: w ::: Natural  <?> "Which day's exercises to run"
-  , part :: w ::: Maybe Natural <?> "Which part of the day's exercise to run"
+  , day :: w ::: Int <?> "Which day's exercises to run"
+  , part :: w ::: Maybe Int <?> "Which part of the day's exercise to run"
   , json :: w ::: Bool <?> "Whether or not to show resuls as json"
   } deriving (Generic)
 
@@ -31,7 +30,7 @@ instance ParseRecord (Options Wrapped) where
       modifiers = defaultModifiers { shortNameModifier = firstLetter }
 deriving instance Show (Options Unwrapped)
 
-exercises :: [(Natural, Solution (ByteString -> Natural))]
+exercises :: [(Int, Solution (ByteString -> Int))]
 exercises = 
   [ (1, Solution Day1Part1.run Day1Part2.run)
   , (2, Solution Day2Part1.run Day2Part2.run)

@@ -7,9 +7,8 @@ import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as B
 import Data.Set (Set)
 import Data.Set qualified as S
-import Numeric.Natural (Natural)
 
-getPriority :: Char -> Natural
+getPriority :: Char -> Int
 getPriority = \case
   'a' -> 1
   'b' -> 2

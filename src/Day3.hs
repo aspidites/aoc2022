@@ -6,10 +6,9 @@ module Day3
 import qualified Day3.Part1 as Part1
 import qualified Day3.Part2 as Part2
 import Data.ByteString (ByteString)
-import Numeric.Natural (Natural)
 
-part1 :: ByteString -> Natural
+part1 :: ByteString -> Int
 part1 = Part1.run
 
-part2 :: ByteString -> Natural
+part2 :: ByteString -> Int
 part2 = Part2.run

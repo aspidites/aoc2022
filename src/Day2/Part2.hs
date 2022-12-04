@@ -9,7 +9,6 @@ import Day2.Common
   , parse
   )
 
-import Numeric.Natural (Natural)
 import  Data.ByteString (ByteString)
 
 predictRound :: Round -> Round
@@ -25,8 +24,8 @@ predictRound (Round them us) =
     (C, Y) -> Z
     (C, Z) -> X
 
-solve :: [Round] -> Natural
+solve :: [Round] -> Int
 solve = sum . fmap (P1.scoreRound . predictRound)
 
-run :: ByteString -> Natural
+run :: ByteString -> Int
 run = solve . parse

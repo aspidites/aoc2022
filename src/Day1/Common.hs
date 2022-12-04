@@ -6,9 +6,8 @@ import Data.ByteString qualified as B
 
 import Data.Word (Word8)
 import Data.ByteString.Char8 (readInt)
-import Numeric.Natural (Natural)
 
-newtype Elf = Elf { calories :: [Natural] }
+newtype Elf = Elf { calories :: [Int] }
 
 tokenize :: ByteString -> ByteString -> [ByteString]
 tokenize x y = h : if B.null t then [] else tokenize x (B.drop (B.length x) t)

@@ -2,7 +2,6 @@
 module Day2.Part1 (run, solve, scoreRound) where
 
 import  Data.ByteString (ByteString)
-import Numeric.Natural (Natural)
 import Day2.Common
   ( Round(..)
   , Us(..)
@@ -11,7 +10,7 @@ import Day2.Common
   , scoreShape
   )
 
-scoreRound :: Round -> Natural
+scoreRound :: Round -> Int
 scoreRound (Round them us) = scoreShape us + outcome (them, us)
   where
     outcome = \case
@@ -24,8 +23,8 @@ scoreRound (Round them us) = scoreShape us + outcome (them, us)
       _ -> 3
 
 
-solve :: [Round] -> Natural
+solve :: [Round] -> Int
 solve = sum . fmap scoreRound
 
-run :: ByteString -> Natural
+run :: ByteString -> Int
 run = solve . parse

@@ -5,7 +5,6 @@ module Day2.Common where
 
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as B
-import Numeric.Natural
 
 data Them = A | B | C
   deriving (Eq, Ord, Read, Show)
@@ -16,7 +15,7 @@ data Round = Round Them Us
 data Us = X | Y | Z
   deriving (Eq, Ord, Read, Show)
 
-scoreShape :: Us -> Natural
+scoreShape :: Us -> Int
 scoreShape = \case
   X -> 1
   Y -> 2 

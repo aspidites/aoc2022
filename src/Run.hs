@@ -12,7 +12,6 @@ import Common (Solution(..))
 import Options (Options(..), exercises)
 import Data.ByteString.Char8 qualified as C
 import Options.Generic (Unwrapped)
-import Numeric.Natural (Natural)
 import Data.Aeson (encode)
 
 runWithOptions :: Options Unwrapped -> IO ByteString
@@ -27,7 +26,7 @@ runWithOptions (Options path day part asJson) = do
         Just part' -> do
           run input day part' asJson
 
-runAllParts :: ByteString -> Natural -> Bool -> IO ByteString
+runAllParts :: ByteString -> Int -> Bool -> IO ByteString
 runAllParts input day asJson = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
@@ -36,7 +35,7 @@ runAllParts input day asJson = do
         then pure . B.toStrict $ encode (Solution (Just (r1 input)) (Just (r2 input)))
         else pure $ C.pack (show (r1 input)) <> "\n" <> C.pack (show (r2 input))
 
-run :: ByteString -> Natural -> Natural -> Bool -> IO ByteString
+run :: ByteString -> Int -> Int -> Bool -> IO ByteString
 run input day part _ = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
