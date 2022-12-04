@@ -1,16 +1,13 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Day2.Common where
 
 
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as B
-import Numeric.Natural (Natural)
+import Numeric.Natural
 
 data Them = A | B | C
-  deriving (Eq, Ord, Read, Show)
-
-data RPS = Rock | Paper | Scissors
   deriving (Eq, Ord, Read, Show)
 
 data Round = Round Them Us
@@ -19,27 +16,24 @@ data Round = Round Them Us
 data Us = X | Y | Z
   deriving (Eq, Ord, Read, Show)
 
-themToRPS :: Them -> RPS
-themToRPS = \case
-  A -> Rock
-  B -> Paper
-  C -> Scissors
+scoreShape :: Us -> Natural
+scoreShape = \case
+  X -> 1
+  Y -> 2 
+  Z -> 3
 
-scoreOutcome :: (RPS, RPS) -> Natural
-scoreOutcome = \case
-  (Rock, Paper) -> 0
-  (Rock, Scissors) -> 6
-  (Paper, Scissors) -> 0
-  (Paper, Rock) -> 6
-  (Scissors, Rock) -> 0
-  (Scissors, Paper) -> 6
-  _ -> 3
-
-scoreShape :: RPS -> Natural
-scoreShape = \case 
-  Rock -> 1 
-  Paper -> 2 
-  Scissors -> 3
+parseRound :: ByteString -> Round
+parseRound = \case
+  "A X" -> Round A X
+  "B X" -> Round B X
+  "C X" -> Round C X
+  "A Y" -> Round A Y
+  "B Y" -> Round B Y
+  "C Y" -> Round C Y
+  "A Z" -> Round A Z
+  "B Z" -> Round B Z
+  "C Z" -> Round C Z
+  _ -> error "Unknown format for round"
 
 parse :: ByteString -> [Round]
-parse = fmap (\x -> read . B.unpack $ "Round " <> x) . B.lines
+parse = fmap parseRound . B.lines

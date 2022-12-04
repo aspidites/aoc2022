@@ -1,31 +1,28 @@
 {-# LANGUAGE LambdaCase #-}
-module Day2.Part1 (run, solve) where
+module Day2.Part1 (run, solve, scoreRound) where
 
 import  Data.ByteString (ByteString)
 import Numeric.Natural (Natural)
 import Day2.Common
   ( Round(..)
-  , RPS(..)
   , Us(..)
+  , Them(..)
   , parse
   , scoreShape
-  , scoreOutcome
-  , themToRPS
   )
 
-usToRPS :: Us -> RPS
-usToRPS = \case
-  X -> Rock
-  Y -> Paper
-  Z -> Scissors
-
 scoreRound :: Round -> Natural
-scoreRound (Round them us) = shape + outcome
+scoreRound (Round them us) = scoreShape us + outcome (them, us)
   where
-    shape = scoreShape ourShape
-    outcome = scoreOutcome (ourShape, theirShape)
-    ourShape = usToRPS us
-    theirShape = themToRPS them
+    outcome = \case
+      (A, Y) -> 6
+      (A, Z) -> 0 
+      (B, X) -> 0
+      (B, Z) -> 6
+      (C, X) -> 6
+      (C, Y) -> 0
+      _ -> 3
+
 
 solve :: [Round] -> Natural
 solve = sum . fmap scoreRound
