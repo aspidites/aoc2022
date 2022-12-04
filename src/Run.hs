@@ -5,6 +5,7 @@ module Run
   , run 
   ) where
 
+import System.Directory
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as B
 import Common (Solution(..), Exercise(..))
@@ -16,11 +17,15 @@ import Data.Aeson (encode)
 
 runWithOptions :: Options Unwrapped -> IO ByteString
 runWithOptions (Options path day part asJson) = do
-  input <- B.readFile path
-  case part of
-    Nothing -> runAllParts input day asJson
-    Just part' -> do
-      run input day part' asJson
+  exists <- doesFileExist path
+  if not exists 
+    then pure ""
+    else do
+      input <- B.readFile path
+      case part of
+        Nothing -> runAllParts input day asJson
+        Just part' -> do
+          run input day part' asJson
 
 runAllParts :: ByteString -> Natural -> Bool -> IO ByteString
 runAllParts input day asJson = do

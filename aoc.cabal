@@ -25,6 +25,7 @@ common shared-depends
     , aeson
     , optparse-generic
     , bytestring
+    , directory
 
 common shared-language
   default-language: GHC2021
