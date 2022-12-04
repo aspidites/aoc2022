@@ -1,27 +1,27 @@
 import Test.Tasty.Bench
 
+import Data.Functor ((<&>))
 import Run (run, runAllParts)
 import Data.ByteString qualified as B
 
+inputPaths :: [FilePath]
+inputPaths = 
+  [ "inputs/01.txt"
+  , "inputs/02.txt"
+  , "inputs/03.txt"
+  ]
+
+
 main :: IO ()
 main = do
-  day1Input <- B.readFile "inputs/01.txt"
-  day2Input <- B.readFile "inputs/02.txt"
-  defaultMain
-    [ bgroup "day 1"
-      [ bench "part 1" $ nfIO $ 
-          run day1Input 1 1 False
-      , bench "part 2" $ nfIO $ 
-          run day1Input 1 2 False
-      , bench "whole day" $ nfIO $ 
-          runAllParts day1Input 1 False
+  inputs <- zip [1..] <$> mapM B.readFile inputPaths
+
+  defaultMain $ inputs <&> \(day, input) ->
+    bgroup ("day " <> show day)
+      [ bench "part 1" $ nfIO $
+          run input day 1 False
+      , bench "part 2" $ nfIO $
+          run input day 2 False
+      , bench "whole day" $ nfIO $
+          runAllParts input day False
       ]
-    , bgroup "day 2"
-      [ bench "part 1" $ nfIO $ 
-          run day2Input 2 1 False
-      , bench "part 2" $ nfIO $ 
-          run day2Input 2 2 False
-      , bench "whole day" $ nfIO $ 
-          runAllParts day2Input 2 False
-      ]
-    ]

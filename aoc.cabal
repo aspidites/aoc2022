@@ -22,6 +22,7 @@ common shared-ghc-options
 common shared-depends 
   build-depends:    
       base
+    , split
     , aeson
     , optparse-generic
     , bytestring

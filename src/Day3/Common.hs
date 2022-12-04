@@ -66,20 +66,11 @@ getPriority = \case
   _ -> error "Invalid item"
 
 data RuckSack = RuckSack 
-  { first :: Set Char
+  { team :: [Char]
+  , first :: Set Char
   , second :: Set Char
   }
   deriving (Eq, Ord, Show)
-
-findDuplicate :: RuckSack -> Set Char
-findDuplicate (RuckSack a b) = a `S.intersection` b
-
-prioritize :: [RuckSack] -> [Natural]
-prioritize = fmap getPriority . foldr go [] . fmap findDuplicate
-  where
-    go :: Set Char -> [Char] -> [Char]
-    go set list = S.toAscList set <> list
-
 
 parse :: ByteString -> [RuckSack]
 parse = fmap go . B.lines
@@ -87,4 +78,4 @@ parse = fmap go . B.lines
     go :: ByteString -> RuckSack
     go line = 
       let (f, s) = B.splitAt (B.length line `div` 2) line
-      in RuckSack (S.fromList $ B.unpack f) (S.fromList $ B.unpack s)
+      in RuckSack (B.unpack line) (S.fromList $ B.unpack f) (S.fromList $ B.unpack s)
