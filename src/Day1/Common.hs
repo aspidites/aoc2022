@@ -3,9 +3,9 @@ module Day1.Common where
 
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as B
+import Data.ByteString.Lex.Integral (readDecimal_)
 
 import Data.Word (Word8)
-import Data.ByteString.Char8 (readInt)
 
 newtype Elf = Elf { calories :: [Int] }
 
@@ -17,5 +17,5 @@ newline :: Word8
 newline = 10
 
 parse :: ByteString -> [Elf]
-parse = fmap (Elf . fmap (fromIntegral . maybe 0 fst . readInt) . B.split 10)
-      . tokenize "\n\n"
+parse = fmap (Elf . fmap readDecimal_ . B.split 10) . tokenize "\n\n"
+
