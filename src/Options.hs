@@ -6,7 +6,7 @@ module Options
   ) where
 
 import Options.Generic 
-import Common (Exercise(..))
+import Common (Solution(..))
 import Numeric.Natural (Natural)
 
 import Day1.Part1 qualified as Day1Part1
@@ -31,9 +31,9 @@ instance ParseRecord (Options Wrapped) where
       modifiers = defaultModifiers { shortNameModifier = firstLetter }
 deriving instance Show (Options Unwrapped)
 
-exercises :: [(Natural, Exercise (ByteString -> Natural))]
+exercises :: [(Natural, Solution (ByteString -> Natural))]
 exercises = 
-  [ (1, Exercise Day1Part1.run Day1Part2.run)
-  , (2, Exercise Day2Part1.run Day2Part2.run)
-  , (3, Exercise Day3Part1.run Day3Part2.run)
+  [ (1, Solution Day1Part1.run Day1Part2.run)
+  , (2, Solution Day2Part1.run Day2Part2.run)
+  , (3, Solution Day3Part1.run Day3Part2.run)
   ]

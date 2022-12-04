@@ -13,12 +13,6 @@ import Numeric.Natural (Natural)
 import  Data.ByteString (ByteString)
 import Data.List.Split (chunksOf)
 
-data Group = Group
-  { one :: Set Char
-  , two :: Set Char
-  , three :: Set Char
-  } deriving (Eq, Ord, Show)
-
 solve :: [RuckSack] -> Natural
 solve = sum . fmap getPriority . concatMap (S.toList . foldr1 S.intersection) . getTeams
 

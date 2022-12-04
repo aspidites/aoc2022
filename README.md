@@ -91,9 +91,11 @@ cabal run aoc -i ./inputs/01.txt -d 1 -p 2
 
 If you'd rather the results as json, just pass the `-j` flag:
 ```
+cabal run aoc -i ./inputs/01.txt -d 1 -j
 {"part_1":"70764","part_2":"203905"}
 ```
 
+Note that the -j flag does not work when specifying a specific part.
 
 ### Benchmarks
 

@@ -8,7 +8,7 @@ module Run
 import System.Directory
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as B
-import Common (Solution(..), Exercise(..))
+import Common (Solution(..))
 import Options (Options(..), exercises)
 import Data.ByteString.Char8 qualified as C
 import Options.Generic (Unwrapped)
@@ -31,22 +31,19 @@ runAllParts :: ByteString -> Natural -> Bool -> IO ByteString
 runAllParts input day asJson = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
-    Just (Exercise r1 r2) -> 
+    Just (Solution r1 r2) -> 
       if asJson 
         then pure . B.toStrict $ encode (Solution (Just (r1 input)) (Just (r2 input)))
         else pure $ C.pack (show (r1 input)) <> "\n" <> C.pack (show (r2 input))
 
 run :: ByteString -> Natural -> Natural -> Bool -> IO ByteString
-run input day part asJson = do
+run input day part _ = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
-    -- TODO: better model types so I dont' have to do this terriblness
-    Just (Exercise r1 r2) -> 
-      if asJson
-        then 
-          if part == 1 
-            then pure . B.toStrict $ encode (Solution (Just (r1 input)) Nothing)
-            else pure . B.toStrict $ encode (Solution Nothing (Just (r2 input)))
-        else 
-          pure $ C.pack (show ((if part == 1 then r1 else r2) input))
+    Just (Solution r1 r2) -> 
+      let r = case part of
+            1 -> r1
+            2 -> r2
+            _ -> error "Invalid part specified"
+      in pure . C.pack . show $ r input
 
