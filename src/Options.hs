@@ -18,6 +18,8 @@ import Numeric.Natural (Natural)
 import Day1 (Runner)
 import Day1.Part1 qualified as Day1Part1
 import Day1.Part2 qualified as Day1Part2
+import Day2.Part1 qualified as Day2Part1
+import Day2.Part2 qualified as Day2Part2
 
 
 data Options w = Options
@@ -38,6 +40,15 @@ exercises =
           )
         , ( 2
           , Day1Part2.run
+          )
+        ]
+    )
+  , ( 2 
+      , [ ( 1 
+          , Day2Part1.run
+          )
+        , ( 2
+          , Day2Part2.run
           )
         ]
     )

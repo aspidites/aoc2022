@@ -15,4 +15,12 @@ main = defaultMain
     , bench "whole day" $ nfIO $ 
         runAllParts day1Input 1
     ]
+  , bgroup "day 1"
+    [ bench "part 1" $ nfIO $ 
+        run day1Input 1 1
+    , bench "part 2" $ nfIO $ 
+        run day1Input 1 2
+    , bench "whole day" $ nfIO $ 
+        runAllParts day1Input 1
+    ]
   ]
