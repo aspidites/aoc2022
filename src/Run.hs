@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Run 
   ( runWithOptions 
-  , runAllDays 
   , runAllParts 
   , run 
   ) where
@@ -15,20 +14,10 @@ import Data.Text qualified as T
 
 runWithOptions :: Options Unwrapped -> IO Text
 runWithOptions (Options input day part) = do
-  case day of
-    Nothing -> runAllDays input
-    Just day' -> do
-      case part of
-        Nothing -> runAllParts input day'
-        Just part' -> do
-          run input day' part' 
-
-runAllDays :: FilePath -> IO Text
-runAllDays input = fmap T.unlines . sequence $ do
-  (_, parts) <- exercises
-  (_, runner) <- parts
-  pure $ runner input
-  
+  case part of
+    Nothing -> runAllParts input day
+    Just part' -> do
+      run input day part' 
 
 runAllParts :: FilePath -> Natural -> IO Text
 runAllParts input day = do
@@ -37,7 +26,6 @@ runAllParts input day = do
     Just parts -> do
       results <- forM parts $ \(_, runner) -> runner input
       pure $ T.unlines results
-
 
 run :: FilePath -> Natural -> Natural -> IO Text
 run input day part = do

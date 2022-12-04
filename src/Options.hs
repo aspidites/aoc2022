@@ -24,7 +24,7 @@ import Day2.Part2 qualified as Day2Part2
 
 data Options w = Options
   (w ::: FilePath <?> "Path to an input file to run an exercise against")
-  (w ::: Maybe Natural  <?> "Which day's exercises to run")
+  (w ::: Natural  <?> "Which day's exercises to run")
   (w ::: Maybe Natural <?> "Which part of the day's exercise to run")
   deriving (Generic)
 
