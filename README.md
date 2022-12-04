@@ -66,7 +66,7 @@ You can use `cabal run aoc` to run the executable without installing it. To get 
 Up to date
 AOC Runner
 
-Usage: aoc STRING [NATURAL] [NATURAL]
+Usage: aoc STRING NATURAL [NATURAL]
 
 Available options:
   -h,--help                Show this help text
