@@ -1,7 +1,8 @@
 {-# LANGUAGE LambdaCase #-}
 module Day2.Part2 (run, solve) where
 
-import Day2
+import Common (Runner)
+import Day2.Common
 
 import Numeric.Natural (Natural)
 

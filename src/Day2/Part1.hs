@@ -2,9 +2,9 @@
 module Day2.Part1 (run, solve) where
 
 import Numeric.Natural (Natural)
-import Day2 
+import Common (Runner)
+import Day2.Common
   ( Solver
-  , Runner
   , Round(..)
   , RPS(..)
   , Us(..)

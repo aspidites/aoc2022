@@ -1,6 +1,7 @@
-module Day1.Part1 (run, solve) where
+module Day1.Part1 (run) where
 
-import Day1 (Solver, Runner, mkRun)
+import Common (Runner)
+import Day1.Common (Solver, mkRun)
 
 solve :: Solver
 solve = maximum . fmap sum

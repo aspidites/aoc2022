@@ -1,23 +1,15 @@
-{-# LANGUAGE OverloadedStrings #-}
-module Day1 where
+module Day1 
+  ( part1 
+  , part2 
+  ) where
 
-import Data.Either (rights)
-import Data.Text (Text)
-import Data.Text qualified as T
-import Data.Text.IO qualified as T
-import Data.Text.Read (decimal)
-import Numeric.Natural (Natural)
+import qualified Day1.Part1 as Part1
+import qualified Day1.Part2 as Part2
+import Common (Runner)
 
-type Solver = [[Natural]] -> Natural
-type Runner = FilePath -> IO Text
+part1 :: Runner
+part1 = Part1.run
 
-parse :: Text -> [[Natural]]
-parse = fmap (go . T.lines) . T.splitOn "\n\n"
-  where
-    go :: [Text] -> [Natural]
-    go = fmap fst . rights . fmap decimal
+part2 :: Runner
+part2 = Part2.run
 
-mkRun :: Solver -> Runner
-mkRun solve path = do
-  contents <- T.readFile path
-  pure $ T.pack . show . solve $ parse contents

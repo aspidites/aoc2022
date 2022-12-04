@@ -15,7 +15,7 @@ import Options.Generic
   )
 import Numeric.Natural (Natural)
 
-import Day1 (Runner)
+import Common (Runner)
 import Day1.Part1 qualified as Day1Part1
 import Day1.Part2 qualified as Day1Part2
 import Day2.Part1 qualified as Day2Part1
