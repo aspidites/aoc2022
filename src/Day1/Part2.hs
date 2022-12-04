@@ -6,7 +6,9 @@ import Day1.Common (Elf(..), parse)
 import  Data.ByteString (ByteString)
 
 solve :: [Elf] -> Int
-solve = sum . take 3 . sortOn Down . fmap (sum . calories)
+solve = sum . take 3 
+      . sortOn Down 
+      . fmap (sum . calories)
 
 run :: ByteString -> Int
 run = solve . parse

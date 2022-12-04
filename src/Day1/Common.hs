@@ -11,10 +11,11 @@ newtype Elf = Elf { calories :: [Int] }
 
 tokenize :: ByteString -> ByteString -> [ByteString]
 tokenize x y = h : if B.null t then [] else tokenize x (B.drop (B.length x) t)
-    where (h,t) = B.breakSubstring x y
+    where (h, t) = B.breakSubstring x y
 
 newline :: Word8
 newline = 10
 
 parse :: ByteString -> [Elf]
-parse = fmap (Elf . fmap (fromIntegral . maybe 0 fst . readInt) . B.split 10) . tokenize "\n\n"
+parse = fmap (Elf . fmap (fromIntegral . maybe 0 fst . readInt) . B.split 10)
+      . tokenize "\n\n"
