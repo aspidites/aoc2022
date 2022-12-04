@@ -6,8 +6,8 @@ import Data.Aeson (FromJSON, ToJSON)
 import GHC.Generics (Generic)
 
 data Solution a = Solution
-  { part1 :: Maybe a
-  , part2 :: Maybe a 
+  { part_1 :: Maybe a
+  , part_2 :: Maybe a 
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON, Functor)
 
 data Exercise a = Exercise
