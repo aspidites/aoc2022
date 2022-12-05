@@ -1,26 +1,26 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Day4.Common where
 
+import Data.Maybe
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as B
 import Data.ByteString.Char8 qualified as B
 import Data.IntSet (IntSet)
 import Data.IntSet qualified as S
-import Data.ByteString.Lex.Integral (readDecimal_)
+import Data.ByteString.Lex.Integral (readDecimal)
+
+parseSection :: ByteString -> Maybe Section
+parseSection line = do
+  (a, rest) <- readDecimal line
+  (b, rest') <- readDecimal $ B.drop 1 rest
+  (x, rest'') <- readDecimal $ B.drop 1 rest'
+  (y, _) <- readDecimal rest''
+  pure $ Section (S.fromAscList [a..b]) (S.fromAscList [x..y])
 
 data Section = Section 
   { first :: IntSet
   , second :: IntSet
   } deriving (Eq, Ord, Show)
 
-parseSection :: ByteString -> Section
-parseSection line = Section first second
-  where
-    (left, right) = B.breakSubstring "," line
-    (a, b) = B.breakSubstring "-" left
-    (x, y) = B.breakSubstring "-" $ B.drop 1 right
-    first = S.fromAscList [readDecimal_ a..readDecimal_ (B.drop 1 b)]
-    second = S.fromAscList [readDecimal_ x..readDecimal_ (B.drop 1 y)]
-    
 parse :: ByteString -> [Section]
-parse = map parseSection . B.lines
+parse = fromMaybe [] . mapM parseSection . B.lines
