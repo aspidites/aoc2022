@@ -1,14 +1,9 @@
-module Day2 
-  ( part1 
-  , part2 
-  ) where
+module Day2 where
 
+import Common (Solution(..))
+import Day2.Common qualified as Common
 import qualified Day2.Part1 as Part1
 import qualified Day2.Part2 as Part2
-import Data.ByteString (ByteString)
 
-part1 :: ByteString -> Int
-part1 = Part1.run
-
-part2 :: ByteString -> Int
-part2 = Part2.run
+day2 :: Solution
+day2 = Solution Common.parse Part1.solve Part2.solve

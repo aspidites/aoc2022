@@ -1,10 +1,7 @@
-module Day1.Part1 (run) where
+module Day1.Part1 where
 
-import Day1.Common (Elf(..), parse)
-import  Data.ByteString (ByteString)
+import Common (ParseResult(ParseElves), Elf(..))
 
-solve :: [Elf] -> Int
-solve = maximum . fmap (sum . calories)
-
-run :: ByteString -> Int
-run = solve . parse
+solve :: ParseResult -> Int
+solve (ParseElves elves) = maximum . fmap (sum . calories) $ elves
+solve _ = error "invalid parse result received"

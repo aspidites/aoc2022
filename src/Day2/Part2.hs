@@ -1,15 +1,13 @@
-module Day2.Part2 (run, solve) where
+module Day2.Part2 where
 
-import Day2.Part1 qualified as P1
+import Day2.Part1 (scoreRound)
 
-import Day2.Common 
+import Common 
   ( Us(..)
   , Them(..)
   , Round(..)
-  , parse
+  , ParseResult (ParseRounds)
   )
-
-import  Data.ByteString (ByteString)
 
 predictRound :: Round -> Round
 predictRound (Round them us) = 
@@ -24,8 +22,6 @@ predictRound (Round them us) =
     (C, Y) -> Z
     (C, Z) -> X
 
-solve :: [Round] -> Int
-solve = sum . fmap (P1.scoreRound . predictRound)
-
-run :: ByteString -> Int
-run = solve . parse
+solve :: ParseResult -> Int
+solve (ParseRounds rounds) = sum . fmap (scoreRound . predictRound) $ rounds
+solve _ = error "invalid parse result received"

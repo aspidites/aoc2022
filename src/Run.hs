@@ -8,11 +8,25 @@ module Run
 import System.Directory
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as B
-import Common (Solution(..))
-import Options (Options(..), exercises)
+import Common (Output(..), Solution(..))
+import Options (Options(..))
 import Data.ByteString.Char8 qualified as C
 import Options.Generic (Unwrapped)
 import Data.Aeson (encode)
+
+import Day1
+import Day2
+import Day3
+import Day4
+
+exercises :: [(Int, Solution)]
+exercises = 
+  [ (1, day1)
+  , (2, day2)
+  , (3, day3)
+  , (4, day4)
+  ]
+
 
 runWithOptions :: Options Unwrapped -> IO ByteString
 runWithOptions (Options path day part asJson) = do
@@ -24,25 +38,26 @@ runWithOptions (Options path day part asJson) = do
       case part of
         Nothing -> runAllParts input day asJson
         Just part' -> do
-          run input day part' asJson
+          run input day part'
 
 runAllParts :: ByteString -> Int -> Bool -> IO ByteString
 runAllParts input day asJson = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
-    Just (Solution r1 r2) -> 
-      if asJson 
-        then pure . B.toStrict $ encode (Solution (Just (r1 input)) (Just (r2 input)))
-        else pure $ C.pack (show (r1 input)) <> "\n" <> C.pack (show (r2 input))
+    Just (Solution p s1 s2 ) -> do
+      let r = p input
+          s1' = s1 r
+          s2' = s2 r
+      if asJson
+        then pure . B.toStrict $ encode (Output s1' s2')
+        else pure $ C.pack (show s1') <> C.pack (show s2')
+      
 
-run :: ByteString -> Int -> Int -> Bool -> IO ByteString
-run input day part _ = do
+run :: ByteString -> Int -> Int -> IO ByteString
+run input day part = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
-    Just (Solution r1 r2) -> 
-      let r = case part of
-            1 -> r1
-            2 -> r2
-            _ -> error "Invalid part specified"
-      in pure . C.pack . show $ r input
-
+    Just (Solution p s1 s2) -> do
+      let r = p input
+          s = if part == 1 then s1 r else s2 r
+      pure $ C.pack (show s)

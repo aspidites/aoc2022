@@ -9,6 +9,7 @@ inputPaths =
   [ "inputs/01.txt"
   , "inputs/02.txt"
   , "inputs/03.txt"
+  , "inputs/04.txt"
   ]
 
 

@@ -1,14 +1,11 @@
-module Day1.Part2 (run) where
+module Day1.Part2 where
 
 import Data.List (sortOn)
+import Common (ParseResult(ParseElves), Elf(..))
 import Data.Ord (Down(..))
-import Day1.Common (Elf(..), parse)
-import  Data.ByteString (ByteString)
 
-solve :: [Elf] -> Int
-solve = sum . take 3 
-      . sortOn Down 
-      . fmap (sum . calories)
-
-run :: ByteString -> Int
-run = solve . parse
+solve :: ParseResult -> Int
+solve (ParseElves elves) = sum . take 3 
+                         . sortOn Down 
+                         . fmap (sum . calories) $ elves
+solve _ = error "invalid parse result received"

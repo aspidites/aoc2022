@@ -2,18 +2,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Day2.Common where
 
-
+import Common (Us(..), Them(..), Round(..), ParseResult(ParseRounds))
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as B
-
-data Them = A | B | C
-  deriving (Eq, Ord, Read, Show)
-
-data Round = Round Them Us
-  deriving (Eq, Ord, Read, Show)
-
-data Us = X | Y | Z
-  deriving (Eq, Ord, Read, Show)
 
 scoreShape :: Us -> Int
 scoreShape = \case
@@ -34,5 +25,5 @@ parseRound = \case
   "C Z" -> Round C Z
   _ -> error "Unknown format for round"
 
-parse :: ByteString -> [Round]
-parse = fmap parseRound . B.lines
+parse :: ByteString -> ParseResult
+parse = ParseRounds . fmap parseRound . B.lines
