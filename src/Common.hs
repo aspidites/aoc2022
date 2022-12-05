@@ -13,10 +13,10 @@ data Output a = Output
   , part_2 :: a 
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON, Functor)
 
-data Solution a = Solution
+data Solution a b = Solution
   { parser :: ByteString -> a
-  , solve_1 :: a -> Int
-  , solve_2 :: a -> Int
+  , solve_1 :: a -> b
+  , solve_2 :: a -> b
   }
 
-data SomeSolution = forall a. SomeSolution (Solution a)
+data SomeSolution = forall a b. (ToJSON b, Show b) => SomeSolution (Solution a b)
