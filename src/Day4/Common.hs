@@ -18,9 +18,9 @@ parseSection line = Section first second
   where
     (left, right) = B.breakSubstring "," line
     (a, b) = B.breakSubstring "-" left
-    (x, y) = B.breakSubstring "-" right
-    first = S.fromAscList [readDecimal_ a..readDecimal_ b]
-    second = S.fromAscList [readDecimal_ x..readDecimal_ y]
+    (x, y) = B.breakSubstring "-" $ B.drop 1 right
+    first = S.fromAscList [readDecimal_ a..readDecimal_ (B.drop 1 b)]
+    second = S.fromAscList [readDecimal_ x..readDecimal_ (B.drop 1 y)]
     
 parse :: ByteString -> [Section]
 parse = map parseSection . B.lines
