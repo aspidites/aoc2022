@@ -9,8 +9,8 @@ import GHC.Generics (Generic)
 import Data.ByteString (ByteString)
 
 data Output a = Output
-  { part_1 :: a
-  , part_2 :: a 
+  { part_1 :: !a
+  , part_2 :: !a 
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON, Functor)
 
 data Solution a b = Solution

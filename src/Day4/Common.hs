@@ -1,25 +1,26 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Day4.Common where
 
-import Data.Either (fromRight)
-import Data.Attoparsec.ByteString.Char8
 import Data.ByteString (ByteString)
+import Data.ByteString qualified as B
+import Data.ByteString.Char8 qualified as B
 import Data.IntSet (IntSet)
 import Data.IntSet qualified as S
+import Data.ByteString.Lex.Integral (readDecimal_)
 
 data Section = Section 
   { first :: IntSet
   , second :: IntSet
   } deriving (Eq, Ord, Show)
 
-parseRange :: Parser IntSet
-parseRange = do
-  a1 <- read <$> many1 digit
-  _ <- char '-'
-  a2 <- read <$> many1 digit
-  pure . S.fromAscList $ [a1..a2]
-
-parseSection :: Parser Section
-parseSection = Section <$> parseRange <*> (char ',' *> parseRange)
-
+parseSection :: ByteString -> Section
+parseSection line = Section first second
+  where
+    (left, right) = B.breakSubstring "," line
+    (a, b) = B.breakSubstring "-" left
+    (x, y) = B.breakSubstring "-" right
+    first = S.fromAscList [readDecimal_ a..readDecimal_ b]
+    second = S.fromAscList [readDecimal_ x..readDecimal_ y]
+    
 parse :: ByteString -> [Section]
-parse = fromRight [] . parseOnly (parseSection `sepBy1` endOfLine)
+parse = map parseSection . B.lines
