@@ -1,10 +1,15 @@
 module Day4.Common where
 
+import Data.Either (fromRight)
 import Data.Attoparsec.ByteString.Char8
 import Data.ByteString (ByteString)
 import Data.IntSet (IntSet)
 import Data.IntSet qualified as S
-import Common (ParseResult(ParseFn))
+
+data Section = Section 
+  { first :: IntSet
+  , second :: IntSet
+  } deriving (Eq, Ord, Show)
 
 parseRange :: Parser IntSet
 parseRange = do
@@ -13,13 +18,8 @@ parseRange = do
   a2 <- read <$> many1 digit
   pure . S.fromAscList $ [a1..a2]
 
-parseLine :: (IntSet -> IntSet -> Bool) -> Parser Int
-parseLine predicate = do
-  r1 <- parseRange
-  _ <- char ','
-  r2 <- parseRange
+parseSection :: Parser Section
+parseSection = Section <$> parseRange <*> (char ',' *> parseRange)
 
-  pure $ if predicate r1 r2 then 1 else 0
-
-parse :: ByteString -> ParseResult
-parse input = ParseFn $ \predicate -> either (const 0) sum $ parseOnly (parseLine predicate `sepBy1` endOfLine) input
+parse :: ByteString -> [Section]
+parse = fromRight [] . parseOnly (parseSection `sepBy1` endOfLine)

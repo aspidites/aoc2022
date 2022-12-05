@@ -3,10 +3,18 @@
 module Day3.Common where
 
 
-import Common (RuckSack(..), ParseResult(ParseRucks))
 import Data.ByteString (ByteString)
 import Data.ByteString.Char8 qualified as B
+import Data.Set (Set)
 import Data.Set qualified as S
+
+data RuckSack = RuckSack 
+  { team :: [Char]
+  , first :: Set Char
+  , second :: Set Char
+  }
+  deriving (Eq, Ord, Show)
+
 
 getPriority :: Char -> Int
 getPriority = \case
@@ -64,8 +72,8 @@ getPriority = \case
   'Z' -> 52
   _ -> error "Invalid item"
 
-parse :: ByteString -> ParseResult
-parse = ParseRucks . map go . B.lines
+parse :: ByteString -> [RuckSack]
+parse = map go . B.lines
   where
     go :: ByteString -> RuckSack
     go line = 

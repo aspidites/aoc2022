@@ -8,7 +8,7 @@ module Run
 import System.Directory
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as B
-import Common (Output(..), Solution(..))
+import Common (Output(..), Solution(..), SomeSolution(..))
 import Options (Options(..))
 import Data.ByteString.Char8 qualified as C
 import Options.Generic (Unwrapped)
@@ -19,7 +19,8 @@ import Day2
 import Day3
 import Day4
 
-exercises :: [(Int, Solution)]
+
+exercises :: [(Int, SomeSolution)]
 exercises = 
   [ (1, day1)
   , (2, day2)
@@ -44,7 +45,7 @@ runAllParts :: ByteString -> Int -> Bool -> IO ByteString
 runAllParts input day asJson = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
-    Just (Solution p s1 s2 ) -> do
+    Just (SomeSolution (Solution p s1 s2 )) -> do
       let r = p input
           s1' = s1 r
           s2' = s2 r
@@ -57,7 +58,7 @@ run :: ByteString -> Int -> Int -> IO ByteString
 run input day part = do
   case lookup day exercises of
     Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
-    Just (Solution p s1 s2) -> do
+    Just (SomeSolution (Solution p s1 s2)) -> do
       let r = p input
           s = if part == 1 then s1 r else s2 r
       pure $ C.pack (show s)

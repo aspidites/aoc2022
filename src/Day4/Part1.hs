@@ -1,8 +1,11 @@
 module Day4.Part1 where
 
-import Common (ParseResult(ParseFn))
 import Data.IntSet qualified as S
+import Day4.Common (Section(..))
 
-solve :: ParseResult -> Int
-solve (ParseFn parse) = parse $ \r1 r2 -> r1 `S.isSubsetOf` r2 || r2 `S.isSubsetOf` r1
-solve _ = error "invalid parse result received"
+solve :: [Section] -> Int
+solve = foldr go 0
+  where
+    go :: Section -> Int -> Int
+    go (Section r1 r2) result = 
+      result + if r1 `S.isSubsetOf` r2 || r2 `S.isSubsetOf` r1 then 1 else 0

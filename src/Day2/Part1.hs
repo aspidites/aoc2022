@@ -1,13 +1,12 @@
 {-# LANGUAGE LambdaCase #-}
 module Day2.Part1 where
 
-import Common
+import Day2.Common
   ( Round(..)
   , Us(..)
   , Them(..)
-  , ParseResult(ParseRounds)
+  , scoreShape
   )
-import Day2.Common (scoreShape)
 
 scoreRound :: Round -> Int
 scoreRound (Round them us) = scoreShape us + outcome (them, us)
@@ -21,6 +20,5 @@ scoreRound (Round them us) = scoreShape us + outcome (them, us)
       (C, Y) -> 0
       _ -> 3
 
-solve :: ParseResult -> Int
-solve (ParseRounds rounds) = sum . fmap scoreRound $ rounds
-solve _ = error "invalid parse result received"
+solve :: [Round] -> Int
+solve = sum . fmap scoreRound 

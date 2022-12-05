@@ -2,11 +2,10 @@ module Day2.Part2 where
 
 import Day2.Part1 (scoreRound)
 
-import Common 
+import Day2.Common 
   ( Us(..)
   , Them(..)
   , Round(..)
-  , ParseResult (ParseRounds)
   )
 
 predictRound :: Round -> Round
@@ -22,6 +21,5 @@ predictRound (Round them us) =
     (C, Y) -> Z
     (C, Z) -> X
 
-solve :: ParseResult -> Int
-solve (ParseRounds rounds) = sum . fmap (scoreRound . predictRound) $ rounds
-solve _ = error "invalid parse result received"
+solve :: [Round] -> Int
+solve = sum . fmap (scoreRound . predictRound)
