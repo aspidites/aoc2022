@@ -11,10 +11,10 @@ import Data.ByteString.Lex.Integral (readDecimal)
 
 parseSection :: ByteString -> Maybe Section
 parseSection line = do
-  (a, rest) <- readDecimal line
-  (b, rest') <- readDecimal $ B.drop 1 rest
-  (x, rest'') <- readDecimal $ B.drop 1 rest'
-  (y, _) <- readDecimal rest''
+  (a, as) <- readDecimal line
+  (b, bs) <- readDecimal $ B.drop 1 as
+  (x, cs) <- readDecimal $ B.drop 1 bs
+  (y, _) <- readDecimal $ B.drop 1 cs
   pure $ Section (S.fromAscList [a..b]) (S.fromAscList [x..y])
 
 data Section = Section 
