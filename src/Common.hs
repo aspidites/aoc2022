@@ -7,8 +7,8 @@ module Common where
 import Data.Aeson (FromJSON, ToJSON)
 import GHC.Generics (Generic)
 import Data.ByteString (ByteString)
-import Data.Attoparsec.ByteString.Char8 (Parser)
 import Data.Set (Set)
+import Data.IntSet (IntSet)
 
 newtype Elf = Elf { calories :: [Int] }
 data RuckSack = RuckSack 
@@ -36,7 +36,7 @@ data ParseResult
   = ParseRounds [Round]
   | ParseElves [Elf]
   | ParseRucks [RuckSack]
-  | ParseFn  (Parser Int -> Either String [Int]) 
+  | ParseFn  ((IntSet -> IntSet -> Bool) -> Int)
 
 data Solution = Solution
   { parser :: ByteString -> ParseResult

@@ -20,9 +20,9 @@ main = do
   defaultMain $ inputs <&> \(day, input) ->
     bgroup ("day " <> show day)
       [ bench "part 1" $ nfIO $
-          run input day 1 False
+          run input day 1
       , bench "part 2" $ nfIO $
-          run input day 2 False
+          run input day 2
       , bench "whole day" $ nfIO $
           runAllParts input day False
       ]

@@ -13,6 +13,13 @@ parseRange = do
   a2 <- read <$> many1 digit
   pure . S.fromAscList $ [a1..a2]
 
-parse :: ByteString -> ParseResult
-parse input = ParseFn $ \f -> parseOnly (f `sepBy1` endOfLine) input
+parseLine :: (IntSet -> IntSet -> Bool) -> Parser Int
+parseLine predicate = do
+  r1 <- parseRange
+  _ <- char ','
+  r2 <- parseRange
 
+  pure $ if predicate r1 r2 then 1 else 0
+
+parse :: ByteString -> ParseResult
+parse input = ParseFn $ \predicate -> either (const 0) sum $ parseOnly (parseLine predicate `sepBy1` endOfLine) input
