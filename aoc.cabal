@@ -98,9 +98,11 @@ test-suite aoc-test
   default-language: GHC2021
   type: exitcode-stdio-1.0
   hs-source-dirs: test
-  main-is: MyLibTest.hs
+  main-is: Test.hs
   build-depends:   
       aoc
+    , tasty
+    , tasty-hunit
 
 benchmark aoc-benchmarks
   import:

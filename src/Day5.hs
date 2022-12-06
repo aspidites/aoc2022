@@ -6,4 +6,4 @@ import qualified Day5.Part2 as Part2
 import Common (Solution(..), SomeSolution(..))
 
 day5 :: SomeSolution
-day5 = SomeSolution $ Solution Common.parse Part1.solve Part1.solve
+day5 = SomeSolution $ Solution Common.parse Part1.solve Part2.solve

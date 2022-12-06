@@ -10,6 +10,7 @@ inputPaths =
   , "inputs/02.txt"
   , "inputs/03.txt"
   , "inputs/04.txt"
+  , "inputs/05.txt"
   ]
 
 

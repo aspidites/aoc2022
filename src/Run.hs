@@ -52,7 +52,7 @@ runAllParts input day asJson = do
           s2' = s2 r
       if asJson
         then pure . B.toStrict $ encode (Output s1' s2')
-        else pure $ C.pack (show s1') <> C.pack (show s2')
+        else pure $ C.unlines $ map C.pack [show s1', show s2']
       
 
 run :: ByteString -> Int -> Int -> IO ByteString

@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Day5.Common where
 
@@ -7,26 +8,26 @@ import Control.Applicative ((<|>))
 import Data.Attoparsec.ByteString (Parser)
 import Data.Attoparsec.ByteString.Char8 qualified as A
 import Data.ByteString (ByteString)
+import Data.Aeson (ToJSON)
+import GHC.Generics
 
 data Instructions = Instructions [Stack] [Move]
-  deriving (Eq, Ord, Show)
+  deriving (Eq, Ord, Show, Generic)
 
 newtype Crate = Crate 
-  { item :: Char } deriving (Eq, Ord, Show)
+  { item :: Char } 
+  deriving (Eq, Ord, Show, Generic)
 
 data Stack = Stack 
   { header :: Int 
   , crates :: [Crate] 
-  } deriving (Eq, Ord, Show)
+  } deriving (Eq, Ord, Show, Generic)
 
 data Move = Move
   { quantity :: Int
   , from :: Int 
   , to :: Int 
-  } deriving (Eq, Ord)
-
-instance Show Move where
-  show (Move q f t) = "Move " <> show q <> " from " <> show f <> " to " <> show t
+  } deriving (Eq, Ord, Show, Generic, ToJSON)
 
 emptyInstructions :: Instructions
 emptyInstructions = Instructions [] []
@@ -87,6 +88,26 @@ parseFile = do
 
 crateFull :: Crate -> Bool
 crateFull (Crate x) = x /= '\0'
+
+interpretInstructions :: ([Crate] -> [Crate]) -> Instructions -> [Stack]
+interpretInstructions fn (Instructions s m) = interpretMoves fn m s
+
+interpretMoves :: ([Crate] -> [Crate]) -> [Move] -> [Stack] -> [Stack]
+interpretMoves _ [] [] = []
+interpretMoves _ [] ss = ss
+interpretMoves fn (Move q f t : rs) ss = interpretMoves fn rs ss'
+  where
+    toStack = ss !! (t - 1)
+    fromStack = ss !! (f - 1)
+    (movedCrates, fromCrates) = splitAt q (crates fromStack)
+    newFromStack = fromStack { crates = fromCrates }
+    newToStack = toStack { crates = fn movedCrates <> crates toStack}
+    ss' = foldr go [] ss
+    go :: Stack -> [Stack] -> [Stack]
+    go current@(Stack h _) result
+      | h == f = newFromStack : result
+      | h == t = newToStack : result
+      | otherwise = current : result
     
 parse :: ByteString -> Instructions
 parse = fromRight emptyInstructions . A.parseOnly parseFile
