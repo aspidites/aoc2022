@@ -19,6 +19,7 @@ import Day2
 import Day3
 import Day4
 import Day5
+import Day6
 
 exercises :: [(Int, SomeSolution)]
 exercises = 
@@ -27,6 +28,7 @@ exercises =
   , (3, day3)
   , (4, day4)
   , (5, day5)
+  , (6, day6)
   ]
 
 
@@ -45,7 +47,7 @@ runWithOptions (Options path day part asJson) = do
 runAllParts :: ByteString -> Int -> Bool -> IO ByteString
 runAllParts input day asJson = do
   case lookup day exercises of
-    Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
+    Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> " do not exist"
     Just (SomeSolution (Solution p s1 s2 )) -> do
       let r = p input
           s1' = s1 r
@@ -58,7 +60,7 @@ runAllParts input day asJson = do
 run :: ByteString -> Int -> Int -> IO ByteString
 run input day part = do
   case lookup day exercises of
-    Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> "do not exist"
+    Nothing -> pure $ "Solutions for day " <> C.pack (show day) <> " do not exist"
     Just (SomeSolution (Solution p s1 s2)) -> do
       let r = p input
           s = if part == 1 then s1 r else s2 r
