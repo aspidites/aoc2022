@@ -9,8 +9,10 @@ import Data.Attoparsec.ByteString.Char8 qualified as A
 import Data.ByteString (ByteString)
 
 data Instructions = Instructions [Stack] [Move]
+  deriving (Eq, Ord, Show)
 
-newtype Crate = Crate Char deriving (Eq, Ord, Show)
+newtype Crate = Crate 
+  { item :: Char } deriving (Eq, Ord, Show)
 
 data Stack = Stack 
   { header :: Int 
@@ -21,7 +23,10 @@ data Move = Move
   { quantity :: Int
   , from :: Int 
   , to :: Int 
-  } deriving (Eq, Ord, Show)
+  } deriving (Eq, Ord)
+
+instance Show Move where
+  show (Move q f t) = "Move " <> show q <> " from " <> show f <> " to " <> show t
 
 emptyInstructions :: Instructions
 emptyInstructions = Instructions [] []

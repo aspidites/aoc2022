@@ -18,7 +18,7 @@ import Day1
 import Day2
 import Day3
 import Day4
-
+import Day5
 
 exercises :: [(Int, SomeSolution)]
 exercises = 
@@ -26,6 +26,7 @@ exercises =
   , (2, day2)
   , (3, day3)
   , (4, day4)
+  , (5, day5)
   ]
 
 
