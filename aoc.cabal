@@ -68,6 +68,10 @@ library
     Day5.Common
     Day5.Part1
     Day5.Part2
+    Day6
+    Day6.Common
+    Day6.Part1
+    Day6.Part2
     Options
     Run
 

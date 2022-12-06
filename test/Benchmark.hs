@@ -4,21 +4,23 @@ import Data.Functor ((<&>))
 import Run (run, runAllParts)
 import Data.ByteString qualified as B
 
-inputPaths :: [FilePath]
-inputPaths = 
-  [ "inputs/01.txt"
-  , "inputs/02.txt"
-  , "inputs/03.txt"
-  , "inputs/04.txt"
-  , "inputs/05.txt"
+exerciseNames :: [String]
+exerciseNames = 
+  [ "01"
+  , "02"
+  , "03"
+  , "04"
+  , "05"
+  , "06"
   ]
 
 
 main :: IO ()
 main = do
-  inputs <- zip [1..] <$> mapM B.readFile inputPaths
+  inputs <- mapM (\name -> B.readFile $ "inputs/" <> name <> ".txt") exerciseNames
+  let params = zip [1..] inputs
 
-  defaultMain $ inputs <&> \(day, input) ->
+  defaultMain $ params <&> \(day, input) ->
     bgroup ("day " <> show day)
       [ bench "part 1" $ nfIO $
           run input day 1
