@@ -9,7 +9,7 @@ install:
 
 static:
 	docker compose run haskell \
-		bash -c "cd /mnt && cabal install \
+		bash -c "cd /mnt && apk add llvm-static && cabal install \
 		--install-method=copy \
 		--overwrite-policy=always \
 		--installdir='$(STATICINSTALLDIR)' \
@@ -29,3 +29,12 @@ solution:
 	@echo -e "module Day$(day).Part1 where\n\nimport Day$(day).Common\n\nsolve = undefined" >> "src/Day$(day)/Part1.hs"
 	@echo -e "module Day$(day).Part2 where\n\nimport Day$(day).Common\n\nsolve = undefined" >> "src/Day$(day)/Part2.hs"
 	@echo "Don't forget to update Run.hs, tests, and the cabal file! to include references to day $(day)!"
+
+watch-bench:
+	ls src/**/*.hs app/**/*.hs *.cabal | entr -c cabal bench --benchmark-options '--baseline baseline.csv' $(args)
+
+watch-test:
+	ls src/**/*.hs app/**/*.hs *.cabal | entr -c cabal test $(args)
+
+watch-run:
+	ls src/**/*.hs app/**/*.hs *.cabal | entr -c cabal run aoc -- "$(args)"

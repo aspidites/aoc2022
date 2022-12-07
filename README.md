@@ -14,12 +14,12 @@ example, day one is organized as follows:
 This project was built using [GHC](https://www.haskell.org/ghc/) version 9.2.4, which can be installed using [ghcup](https://www.haskell.org/ghcup/):
 
 ```
-ghcup install ghc 9.2.4
+ghcup install ghc 9.4.2
 ```
 
-You'll also want [cabal](https://www.haskell.org/cabal/) so that the commands discussed later in this document work:
+You'll also want [cabal](https://www.haskell.org/cabal/) version 3.8.1.0 so that the commands discussed later in this document work:
 ```
-ghcup install cabal
+ghcup install cabal 3.8.1.0
 ```
 
 ## Installing

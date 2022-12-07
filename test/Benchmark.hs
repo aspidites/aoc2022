@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 import Test.Tasty.Bench
 
 import Data.Functor ((<&>))

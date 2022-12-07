@@ -20,5 +20,3 @@ data Solution a b = Solution
   }
 
 data SomeSolution = forall a b. (ToJSON b, Show b) => SomeSolution (Solution a b)
-
-parse = undefined

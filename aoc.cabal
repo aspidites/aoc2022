@@ -1,12 +1,14 @@
 cabal-version:      3.0
 name:               aoc
 version:            0.1.0.0
+category:           Game
 synopsis:           Advent of Code 2022 solutions
 homepage:           https://github.com/aspidites/aoc
 license:            MIT
 license-file:       LICENSE
 author:             Edwin Marshall
 maintainer:         emarshall85@gmail.com
+description:        My solutions to Advent of Code problems
 
 -- A copyright notice.
 -- copyright:
@@ -14,17 +16,21 @@ maintainer:         emarshall85@gmail.com
 
 extra-source-files: CHANGELOG.md
 
+source-repository head
+  type: gi
+  location: https://github.com/aspidites/aoc2022
+
 common shared-ghc-options
   ghc-options:
-    -O2
-    -Wall
-    -fexcess-precision
-    -optc-O3
+    -Wall 
+    -fllvm 
+    -fexcess-precision 
+    -optc-O3 
     -optc-ffast-math
 
 common shared-depends 
   build-depends:    
-      base
+      base ^>= 4.17.0.0
     , split
     , aeson
     , optparse-generic
